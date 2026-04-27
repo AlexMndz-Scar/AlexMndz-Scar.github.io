@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scar Shop - Premium Services</title>
+<title>Scar Shop</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -12,220 +12,237 @@
     --white: #f5f5f5; --white-dim: rgba(245,245,245,0.7);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--black); color: var(--white); font-family: 'Raleway', sans-serif; overflow-x: hidden; }
-
-  /* Estilo General */
-  .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-  .section-title { text-align: center; font-family: 'Cinzel', serif; color: var(--gold); font-size: 2.5rem; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 3px; }
-
-  /* Navbar */
-  nav { background: rgba(0,0,0,0.9); padding: 20px 0; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--gold-dark); }
-  nav .container { display: flex; justify-content: center; gap: 30px; }
-  nav a { color: var(--white); text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.9rem; transition: 0.3s; }
-  nav a:hover { color: var(--gold); }
-
-  /* Hero Section con nuevo Banner */
-  .hero { 
-    height: 60vh; 
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('image_0f389f.png'); 
-    background-size: cover; 
-    background-position: center; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    text-align: center; 
+  body { background: var(--black); color: var(--white); font-family: 'Raleway', sans-serif; overflow: hidden; height: 100vh; }
+  
+  /* Fondo con ruido y banner */
+  .main-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('image_0f389f.png');
+    background-size: cover;
+    background-position: center;
   }
-  .hero-content h1 { font-family: 'Cinzel Decorative', serif; font-size: 4rem; color: var(--gold); text-shadow: 0 0 20px rgba(201,168,76,0.5); }
 
-  /* Categorías de Productos */
-  .category-section { padding: 80px 0; border-bottom: 1px solid #222; }
-  .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-
-  .product-card {
-    background: var(--dark2);
-    border: 1px solid #222;
-    padding: 30px;
-    text-align: center;
-    transition: 0.4s;
-    position: relative;
-    overflow: hidden;
+  nav { 
+    display: flex; align-items: center; justify-content: space-between; 
+    padding: 1.2rem 4rem; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); 
+    border-bottom: 1px solid rgba(201,168,76,0.2); 
   }
-  .product-card:hover { border-color: var(--gold); transform: translateY(-10px); box-shadow: 0 10px 30px rgba(201,168,76,0.1); }
-  .product-card img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 20px; }
-  .product-card h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 10px; }
-  .product-card p { font-size: 0.9rem; color: var(--white-dim); margin-bottom: 15px; min-height: 40px; }
-  .product-card .price { font-weight: bold; color: var(--white); font-size: 1.2rem; display: block; margin-bottom: 20px; }
-  .buy-btn { 
-    padding: 10px 25px; 
-    background: transparent; 
-    border: 1px solid var(--gold); 
-    color: var(--gold); 
-    text-decoration: none; 
-    font-family: 'Cinzel', serif; 
-    font-size: 0.8rem; 
-    transition: 0.3s;
+  .nav-logo { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; }
+  .nav-logo span { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; color: var(--gold); letter-spacing: 0.1em; }
+
+  /* Tabs de Categorías */
+  .tabs-nav { display: flex; justify-content: center; gap: 1rem; padding: 1rem; background: rgba(0,0,0,0.5); }
+  .tab-link { 
+    font-family: 'Cinzel', serif; padding: 10px 20px; color: var(--white-dim); 
+    cursor: pointer; border: 1px solid transparent; transition: 0.3s; text-transform: uppercase; font-size: 0.8rem;
   }
-  .buy-btn:hover { background: var(--gold); color: var(--black); }
+  .tab-link:hover, .tab-link.active { color: var(--gold); border-bottom: 1px solid var(--gold); }
 
-  .reveal { opacity: 0; transform: translateY(30px); transition: 1s all ease; }
-  .reveal.active { opacity: 1; transform: translateY(0); }
+  /* Area de Contenido */
+  .content-area { flex: 1; overflow-y: auto; padding: 2rem; display: flex; justify-content: center; }
+  .category-content { display: none; width: 100%; max-width: 1200px; }
+  .category-content.active { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
 
-  @media (max-width: 768px) { .hero-content h1 { font-size: 2.5rem; } }
+  /* Tarjetas de Producto (Estilo Original) */
+  .product-card { 
+    background: var(--dark2); border: 1px solid rgba(201,168,76,0.15); 
+    padding: 1.5rem; text-align: center; transition: 0.4s; display: flex; flex-direction: column; align-items: center;
+  }
+  .product-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+  .product-card img { width: 50px; height: 50px; margin-bottom: 1rem; object-fit: contain; }
+  .product-card h3 { font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--white); margin-bottom: 0.5rem; }
+  .product-card p { font-size: 0.75rem; color: var(--white-dim); margin-bottom: 1rem; }
+  .price { font-family: 'Raleway', sans-serif; font-weight: 800; color: var(--gold); font-size: 1.1rem; margin-top: auto; }
+  
+  .btn-discord { 
+    display: inline-block; margin-top: 10px; padding: 8px 15px; 
+    background: transparent; border: 1px solid var(--gold); 
+    color: var(--gold); text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.7rem; 
+  }
+  .btn-discord:hover { background: var(--gold); color: var(--black); }
+
+  /* Seccion Inicio */
+  #inicio-content { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  #inicio-content h1 { font-family: 'Cinzel Decorative', serif; font-size: 3.5rem; color: var(--white); }
+  #inicio-content h1 span { color: var(--gold); }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="container">
-    <a href="#streaming">Streaming</a>
-    <a href="#redes">Redes Sociales</a>
-    <a href="#discord">Discord</a>
-    <a href="#herramientas">Herramientas & VPN</a>
-  </div>
-</nav>
+<div class="main-container">
+  <nav>
+    <a class="nav-logo" href="#">
+      <span>Scar Shop</span>
+    </a>
+    <a href="https://discord.gg/UF7f4XHNYX" target="_blank" class="btn-discord">Nuestro Discord</a>
+  </nav>
 
-<section class="hero">
-  <div class="hero-content">
-    <h1 class="reveal">SCAR SHOP</h1>
-    <p class="reveal">Servicios Digitales de Alta Calidad</p>
+  <div class="tabs-nav">
+    <div class="tab-link active" onclick="openTab(event, 'inicio-content')">Inicio</div>
+    <div class="tab-link" onclick="openTab(event, 'streaming')">Streaming</div>
+    <div class="tab-link" onclick="openTab(event, 'discord-tab')">Discord</div>
+    <div class="tab-link" onclick="openTab(event, 'redes')">Redes Sociales</div>
+    <div class="tab-link" onclick="openTab(event, 'herramientas')">Herramientas & VPN</div>
   </div>
-</section>
 
-<section id="streaming" class="category-section container reveal">
-  <h2 class="section-title">Streaming Life</h2>
-  <div class="products-grid">
-    <div class="product-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix">
-      <h3>Netflix</h3>
-      <p>Cuentas estables con la mejor calidad de video.</p>
-      <span class="price">1.5 USD</span>
-      <a href="#" class="buy-btn">Adquirir</a>
+  <div class="content-area">
+    <div id="inicio-content" class="category-content active">
+      <h1>Scar <span>Shop</span></h1>
+      <p style="font-family: 'Cinzel', serif; letter-spacing: 3px; color: var(--gold);">Premium Digital Store</p>
+      <p style="margin-top: 20px; max-width: 600px; color: var(--white-dim);">Bienvenido a la tienda oficial. Selecciona una categoría arriba para ver nuestros productos Life y servicios premium.</p>
     </div>
-    <div class="product-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" alt="Disney+">
-      <h3>Disney+</h3>
-      <p>Acceso ilimitado a todo el contenido de Disney.</p>
-      <span class="price">1.5 USD</span>
-      <a href="#" class="buy-btn">Adquirir</a>
-    </div>
-    <div class="product-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/HBO_Max_Logo.svg" alt="HBO Max">
-      <h3>HBO Max</h3>
-      <p>Las mejores series y películas de Warner Bros.</p>
-      <span class="price">1.5 USD</span>
-      <a href="#" class="buy-btn">Adquirir</a>
-    </div>
-    <div class="product-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Spotify_logo_with_text.svg" alt="Spotify">
-      <h3>Spotify Premium</h3>
-      <p>Música sin anuncios y modo offline.</p>
-      <span class="price">1.5 USD</span>
-      <a href="#" class="buy-btn">Adquirir</a>
-    </div>
-    <div class="product-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/YouTube_Premium_logo.svg" alt="YouTube">
-      <h3>YouTube Premium</h3>
-      <p>YouTube sin anuncios y YouTube Music incluido.</p>
-      <span class="price">1.5 USD</span>
-      <a href="#" class="buy-btn">Adquirir</a>
-    </div>
-  </div>
-</section>
 
-<section id="discord" class="category-section container reveal">
-  <h2 class="section-title">Discord Services</h2>
-  <div class="products-grid">
-    <div class="product-card">
-      <img src="https://upload.wikimedia.org/wikipedia/fr/4/4f/Discord_Logo_sans_texte.svg" alt="Nitro">
-      <h3>Discord Nitro</h3>
-      <p>Mensual o Anual. Mejora tu perfil al máximo.</p>
-      <span class="price">Desde 1.3 USD</span>
-      <a href="#" class="buy-btn">Ver Precios</a>
+    <div id="streaming" class="category-content">
+      <div class="product-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix">
+        <h3>Netflix Life</h3>
+        <p>Perfil Premium 4K</p>
+        <span class="price">1.5 USD</span>
+      </div>
+      <div class="product-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" alt="Disney">
+        <h3>Disney+ Life</h3>
+        <p>Contenido ilimitado</p>
+        <span class="price">1.5 USD</span>
+      </div>
+      <div class="product-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/HBO_Max_Logo.svg" alt="HBO">
+        <h3>HBO Max Life</h3>
+        <p>Cuentas estables</p>
+        <span class="price">1.5 USD</span>
+      </div>
+      <div class="product-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Spotify_logo_with_text.svg" alt="Spotify">
+        <h3>Spotify Life</h3>
+        <p>Música sin límites</p>
+        <span class="price">1.5 USD</span>
+      </div>
+      <div class="product-card">
+        <img src="https://brandcentral.paramount.com/wp-content/uploads/2021/02/Paramount-Plus-Logo-1.png" alt="Paramount">
+        <h3>Paramount+</h3>
+        <p>Streaming Life</p>
+        <span class="price">1.5 USD</span>
+      </div>
+      <div class="product-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Crunchyroll_logo.svg" alt="Crunchyroll">
+        <h3>Crunchyroll</h3>
+        <p>Todo el Anime</p>
+        <span class="price">1.5 USD</span>
+      </div>
     </div>
-    <div class="product-card">
-      <img src="https://upload.wikimedia.org/wikipedia/fr/4/4f/Discord_Logo_sans_texte.svg" alt="Server Boost">
-      <h3>Server Boost (x14)</h3>
-      <p>Lleva tu servidor al Nivel 3 instantáneamente.</p>
-      <span class="price">1 Mes: 1.8 USD / 3 Meses: 4 USD</span>
-      <a href="#" class="buy-btn">Adquirir</a>
-    </div>
-    <div class="product-card">
-      <img src="https://upload.wikimedia.org/wikipedia/fr/4/4f/Discord_Logo_sans_texte.svg" alt="Tokens">
-      <h3>Tokens Nitro</h3>
-      <p>Paquete de 10 tokens para tu servidor.</p>
-      <span class="price">4 USD</span>
-      <a href="#" class="buy-btn">Adquirir</a>
-    </div>
-  </div>
-</section>
 
-<section id="redes" class="category-section container reveal">
-  <h2 class="section-title">Redes Sociales</h2>
-  <div class="products-grid">
-    <div class="product-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
-      <h3>Seguidores Instagram</h3>
-      <p>Aumenta tu presencia en IG con seguidores reales.</p>
-      <span class="price">1.2 USD</span>
-      <a href="#" class="buy-btn">Adquirir</a>
+    <div id="discord-tab" class="category-content">
+      <div class="product-card">
+        <img src="https://static.wikia.nocookie.net/logopedia/images/d/dd/Discord_Nitro_2021.svg" alt="Nitro">
+        <h3>Nitro Mensual</h3>
+        <p>Suscripción Full</p>
+        <span class="price">1.3 USD</span>
+      </div>
+      <div class="product-card">
+        <img src="https://static.wikia.nocookie.net/logopedia/images/d/dd/Discord_Nitro_2021.svg" alt="Nitro">
+        <h3>Nitro Anual</h3>
+        <p>Mejor precio</p>
+        <span class="price">3.46 USD</span>
+      </div>
+      <div class="product-card">
+        <img src="https://static.wikia.nocookie.net/logopedia/images/8/87/Discord_Badge_Server_Booster.svg" alt="Boost">
+        <h3>14 Boost x1 Mes</h3>
+        <p>Sube a Nivel 3</p>
+        <span class="price">1.8 USD</span>
+      </div>
+      <div class="product-card">
+        <img src="https://static.wikia.nocookie.net/logopedia/images/8/87/Discord_Badge_Server_Booster.svg" alt="Boost">
+        <h3>14 Boost x3 Meses</h3>
+        <p>Duración extendida</p>
+        <span class="price">4 USD</span>
+      </div>
+      <div class="product-card">
+        <img src="https://upload.wikimedia.org/wikipedia/fr/4/4f/Discord_Logo_sans_texte.svg" alt="Promo">
+        <h3>Promo Discord</h3>
+        <p>1 a 3 meses</p>
+        <span class="price">1.5 - 1.7 USD</span>
+      </div>
     </div>
-    <div class="product-card">
-      <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg" alt="TikTok">
-      <h3>Seguidores TikTok</h3>
-      <p>Hazte viral con nuestra ayuda en TikTok.</p>
-      <span class="price">1.2 USD</span>
-      <a href="#" class="buy-btn">Adquirir</a>
-    </div>
-    <div class="product-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube Sub">
-      <h3>Seguidores YouTube</h3>
-      <p>Crecimiento garantizado para tu canal.</p>
-      <span class="price">9 USD</span>
-      <a href="#" class="buy-btn">Adquirir</a>
-    </div>
-  </div>
-</section>
 
-<section id="herramientas" class="category-section container reveal">
-  <h2 class="section-title">Herramientas & VPN</h2>
-  <div class="products-grid">
-    <div class="product-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="ChatGPT">
-      <h3>ChatGPT Plus</h3>
-      <p>Acceso a GPT-4 y todas las funciones premium.</p>
-      <span class="price">Desde 2.5 USD</span>
-      <a href="#" class="buy-btn">Ver Precios</a>
+    <div id="redes" class="category-content">
+      <div class="product-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="IG">
+        <h3>Seguidores IG</h3>
+        <p>Alta calidad</p>
+        <span class="price">1.2 USD</span>
+      </div>
+      <div class="product-card">
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg" alt="TikTok">
+        <h3>Seguidores TikTok</h3>
+        <p>Aumenta tu alcance</p>
+        <span class="price">1.2 USD</span>
+      </div>
+      <div class="product-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YT">
+        <h3>Seguidores YouTube</h3>
+        <p>Crecimiento real</p>
+        <span class="price">9 USD</span>
+      </div>
+      <div class="product-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="Cuentas">
+        <h3>Cuentas Redes</h3>
+        <p>TikTok / Instagram</p>
+        <span class="price">1 USD</span>
+      </div>
     </div>
-    <div class="product-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Canva_Logo.2021.svg" alt="Canva">
-      <h3>Canva Pro</h3>
-      <p>Diseño profesional sin límites.</p>
-      <span class="price">Desde 0.5 USD</span>
-      <a href="#" class="buy-btn">Ver Precios</a>
-    </div>
-    <div class="product-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/NordVPN_Logo.svg" alt="NordVPN">
-      <h3>NordVPN</h3>
-      <p>Máxima seguridad y privacidad en línea.</p>
-      <span class="price">1 USD</span>
-      <a href="#" class="buy-btn">Adquirir</a>
+
+    <div id="herramientas" class="category-content">
+      <div class="product-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="ChatGPT">
+        <h3>ChatGPT Mensual</h3>
+        <p>GPT-4 Plus</p>
+        <span class="price">2.5 USD</span>
+      </div>
+      <div class="product-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Canva_Logo.2021.svg" alt="Canva">
+        <h3>Canva de por Vida</h3>
+        <p>Acceso Total</p>
+        <span class="price">1.2 USD</span>
+      </div>
+      <div class="product-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/NordVPN_Logo.svg" alt="NordVPN">
+        <h3>Nord VPN</h3>
+        <p>Seguridad Total</p>
+        <span class="price">1 USD</span>
+      </div>
+      <div class="product-card">
+        <img src="https://static-00.iconduck.com/assets.00/ipvanish-icon-2048x2048-v3u0l4u2.png" alt="IPVanish">
+        <h3>IP Vanish</h3>
+        <p>Privacidad Life</p>
+        <span class="price">1 USD</span>
+      </div>
+      <div class="product-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Duolingo_logo.svg" alt="Duolingo">
+        <h3>Duolingo Life</h3>
+        <p>Aprende sin límites</p>
+        <span class="price">1.3 USD</span>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
 <script>
-  window.addEventListener('scroll', reveal);
-  function reveal(){
-    var reveals = document.querySelectorAll('.reveal');
-    for(var i = 0; i < reveals.length; i++){
-      var windowheight = window.innerHeight;
-      var revealtop = reveals[i].getBoundingClientRect().top;
-      var revealpoint = 150;
-      if(revealtop < windowheight - revealpoint){
-        reveals[i].classList.add('active');
-      }
+  function openTab(evt, tabName) {
+    var i, content, tablinks;
+    content = document.getElementsByClassName("category-content");
+    for (i = 0; i < content.length; i++) {
+      content[i].style.display = "none";
+      content[i].classList.remove("active");
     }
+    tablinks = document.getElementsByClassName("tab-link");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = (tabName === 'inicio-content') ? 'flex' : 'grid';
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.className += " active";
   }
 </script>
 
