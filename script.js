@@ -46,7 +46,9 @@ const products = [
   },
   {
     name: "Disney+",
-    subtitle: "Cuenta completa",
+    subtitle: "• Todo el catálogo de Disney, Pixar, Marvel, Star Wars y National Geographic.
+               • Calidad 4K disponible.
+               • Perfil privado y garantizado.",
     term: "Streaming",
     price: "$1.50 USD",
     category: "streaming",
