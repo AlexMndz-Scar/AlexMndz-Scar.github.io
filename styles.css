@@ -505,7 +505,7 @@ input[type="search"] {
 
 .payment-options {
   display: grid;
-  gap: 10px;
+  gap: 14px;
 }
 
 .payment-option,
@@ -520,6 +520,75 @@ input[type="search"] {
   border-radius: 8px;
   background: rgba(8, 13, 19, 0.86);
   font-weight: 900;
+}
+
+.payment-step {
+  display: grid;
+  gap: 4px;
+}
+
+.payment-step span {
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.payment-step strong {
+  font-size: 18px;
+}
+
+.payment-methods {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.payment-method {
+  display: grid;
+  gap: 5px;
+  min-height: 72px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(8, 13, 19, 0.86);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.payment-method:hover,
+.payment-method.active {
+  border-color: rgba(100, 168, 255, 0.75);
+  background: rgba(100, 168, 255, 0.15);
+}
+
+.payment-method span {
+  font-weight: 950;
+}
+
+.payment-method small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.payment-detail {
+  display: grid;
+  gap: 10px;
+  min-height: 84px;
+}
+
+.payment-detail > p {
+  margin: 0;
+  padding: 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  color: var(--muted);
+  line-height: 1.5;
 }
 
 .payment-option:hover {
@@ -589,6 +658,37 @@ input[type="search"] {
   color: var(--muted);
   font-size: 13px;
   line-height: 1.5;
+}
+
+.verification-box {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid rgba(255, 179, 91, 0.26);
+  border-radius: 8px;
+  background: rgba(255, 179, 91, 0.08);
+}
+
+.verification-box strong {
+  color: var(--orange);
+}
+
+.verification-box p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.payment-action {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(100, 168, 255, 0.13);
+  font-weight: 900;
 }
 
 .payment-note {
@@ -718,6 +818,10 @@ footer span:first-child {
   }
 
   .payment-line {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-methods {
     grid-template-columns: 1fr;
   }
 }

@@ -296,6 +296,7 @@ const checkoutDetails = document.querySelector("#checkoutDetails");
 const paymentOptions = document.querySelector("#paymentOptions");
 const closeModalButton = document.querySelector(".modal-close");
 let activeFilter = "todos";
+let activeProduct = null;
 
 function renderProducts() {
   grid.innerHTML = products.map((product) => `
@@ -339,23 +340,47 @@ function bindBuyButtons() {
 }
 
 function openPaymentModal(product) {
+  activeProduct = product;
   checkoutLogo.innerHTML = renderLogo(product);
   checkoutProduct.textContent = product.name;
   checkoutDetails.textContent = `${product.subtitle} · ${product.price}`;
-  paymentOptions.innerHTML = paymentMethods.map((method) => renderPaymentMethod(method, product)).join("");
-  bindCopyButtons();
+  paymentOptions.innerHTML = renderPaymentChooser(product);
+  bindPaymentChooser();
   modal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
+}
+
+function renderPaymentChooser(product) {
+  return `
+    <div class="payment-step">
+      <span>Paso 1</span>
+      <strong>Elige metodo de pago</strong>
+    </div>
+    <div class="payment-methods">
+      ${paymentMethods.map((method) => `
+        <button class="payment-method" type="button" data-method="${method.type}">
+          <span>${method.label}</span>
+          <small>${method.note}</small>
+        </button>
+      `).join("")}
+    </div>
+    <div class="payment-detail" id="paymentDetail">
+      <p>Selecciona un metodo para ver los datos de pago de ${product.name}.</p>
+    </div>
+  `;
 }
 
 function renderPaymentMethod(method, product) {
   if (method.type === "litecoin") return renderLitecoinPayment(method, product);
   if (method.type === "bank") return renderBankPayment(method, product);
   return `
-    <a class="payment-option" href="${method.url}" target="_blank" rel="noreferrer">
-      <span>${method.label}</span>
-      <small>${method.note}</small>
-    </a>
+    <div class="payment-card">
+      <div class="payment-card-head">
+        <span>${method.label}</span>
+        <small>${method.note}</small>
+      </div>
+      <a class="payment-action" href="${method.url}" target="_blank" rel="noreferrer">Abrir Discord</a>
+    </div>
   `;
 }
 
@@ -372,7 +397,7 @@ function renderLitecoinPayment(method, product) {
   return `
     <div class="payment-card">
       <div class="payment-card-head">
-        <span>${method.label}</span>
+        <span>Paso 2 · ${method.label}</span>
         <small>${method.note}</small>
       </div>
       <div class="payment-line">
@@ -380,6 +405,10 @@ function renderLitecoinPayment(method, product) {
         <button class="copy-button" type="button" data-copy="${address}">Copiar wallet</button>
       </div>
       <p class="payment-help">Monto: ${product.price}. Concepto: ${product.name} - Scar Shop.</p>
+      <div class="verification-box">
+        <strong>Paso 3 · Verificacion</strong>
+        <p>Despues de enviar Litecoin, guarda tu TxID. La tienda no confirma pagos automaticamente todavia; el pedido queda pendiente hasta revisar la transaccion.</p>
+      </div>
     </div>
   `;
 }
@@ -404,7 +433,7 @@ function renderBankPayment(method, product) {
   return `
     <div class="payment-card">
       <div class="payment-card-head">
-        <span>${method.label}</span>
+        <span>Paso 2 · ${method.label}</span>
         <small>${method.note}</small>
       </div>
       ${bankRows.map(([label, value]) => `
@@ -414,8 +443,26 @@ function renderBankPayment(method, product) {
         </div>
       `).join("")}
       <p class="payment-help">Monto: ${product.price}. Concepto: ${product.name} - Scar Shop.</p>
+      <div class="verification-box">
+        <strong>Paso 3 · Verificacion</strong>
+        <p>Despues de transferir, conserva el comprobante. La tienda no puede verificar transferencias bancarias automaticamente sin una API bancaria o procesador de pagos.</p>
+      </div>
     </div>
   `;
+}
+
+function bindPaymentChooser() {
+  document.querySelectorAll(".payment-method").forEach((button) => {
+    button.addEventListener("click", () => {
+      const method = paymentMethods.find((item) => item.type === button.dataset.method);
+      const detail = document.querySelector("#paymentDetail");
+      if (!method || !activeProduct || !detail) return;
+      document.querySelectorAll(".payment-method").forEach((item) => item.classList.remove("active"));
+      button.classList.add("active");
+      detail.innerHTML = renderPaymentMethod(method, activeProduct);
+      bindCopyButtons();
+    });
+  });
 }
 
 function bindCopyButtons() {
