@@ -58,7 +58,7 @@ const products = [
   },
   {
     name: "HBO Max",
-    subtitle: "Cuenta completa",
+    subtitle: "HBO es más de historias intensas y de alta calidad 🎬 | Series originales aclamadas y cine premium 🔥 | Contenido exclusivo que engancha desde el primer capítulo 🍿",
     term: "Streaming",
     price: "$1.50 USD",
     category: "streaming",
