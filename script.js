@@ -120,7 +120,7 @@ const products = [
     name: "Minecraft Java",
     subtitle: "Cuenta original",
     term: "Gaming",
-    price: "$1.00 USD",
+    price: "$7.00 USD",
     category: "gaming",
     symbol: "⛏",
     logo: "https://cdn.simpleicons.org/minecraft/65D66F",
