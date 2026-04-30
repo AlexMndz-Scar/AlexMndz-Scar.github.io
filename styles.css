@@ -36,6 +36,10 @@ body {
   overflow-x: hidden;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 #particles,
 .site-grid {
   position: fixed;
@@ -357,6 +361,17 @@ input[type="search"] {
   text-shadow: 0 0 18px var(--accent), 0 0 48px var(--accent);
 }
 
+.symbol img {
+  width: 110px;
+  max-height: 110px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 18px var(--accent)) drop-shadow(0 0 42px var(--accent));
+}
+
+.symbol span {
+  line-height: 1;
+}
+
 .product-body {
   padding: 28px;
 }
@@ -387,10 +402,200 @@ input[type="search"] {
 
 .product .button {
   width: 100%;
+  cursor: pointer;
+  font: inherit;
 }
 
 .product.is-hidden {
   display: none;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(3, 6, 10, 0.72);
+  opacity: 1;
+  backdrop-filter: blur(16px);
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.modal[aria-hidden="true"] {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-panel {
+  position: relative;
+  width: min(520px, 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at top right, rgba(100, 168, 255, 0.17), transparent 18rem),
+    rgba(17, 25, 35, 0.98);
+  padding: 30px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+}
+
+.modal-panel h2 {
+  font-size: 42px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+}
+
+.checkout-summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 22px 0;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.checkout-logo {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--blue);
+  font-weight: 950;
+}
+
+.checkout-logo img {
+  width: 34px;
+  max-height: 34px;
+  object-fit: contain;
+}
+
+.checkout-summary strong,
+.checkout-summary span {
+  display: block;
+}
+
+.checkout-summary strong {
+  font-size: 20px;
+}
+
+.checkout-summary span {
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+.payment-options {
+  display: grid;
+  gap: 10px;
+}
+
+.payment-option,
+.payment-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 54px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(8, 13, 19, 0.86);
+  font-weight: 900;
+}
+
+.payment-option:hover {
+  background: rgba(100, 168, 255, 0.13);
+}
+
+.payment-option small,
+.payment-card small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.payment-option.is-disabled,
+.payment-card.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.52;
+}
+
+.payment-card {
+  display: grid;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.payment-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.payment-line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.payment-line code {
+  overflow: hidden;
+  min-height: 38px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.copy-button {
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(100, 168, 255, 0.13);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  padding: 0 12px;
+}
+
+.payment-help {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.payment-note {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
 }
 
 .discord {
@@ -497,5 +702,22 @@ footer span:first-child {
     width: 150px;
     height: 150px;
     font-size: 54px;
+  }
+
+  .symbol img {
+    width: 82px;
+    max-height: 82px;
+  }
+
+  .modal-panel {
+    padding: 24px;
+  }
+
+  .modal-panel h2 {
+    font-size: 34px;
+  }
+
+  .payment-line {
+    grid-template-columns: 1fr;
   }
 }

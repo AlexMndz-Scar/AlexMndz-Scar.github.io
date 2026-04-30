@@ -65,6 +65,23 @@
     </section>
   </main>
 
+  <div class="modal" id="paymentModal" aria-hidden="true">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="paymentTitle">
+      <button class="modal-close" type="button" aria-label="Cerrar ventana de pago">x</button>
+      <p class="eyebrow">Pago en linea</p>
+      <h2 id="paymentTitle">Completar compra</h2>
+      <div class="checkout-summary">
+        <div class="checkout-logo" id="checkoutLogo"></div>
+        <div>
+          <strong id="checkoutProduct">Producto</strong>
+          <span id="checkoutDetails">Selecciona un metodo de pago</span>
+        </div>
+      </div>
+      <div class="payment-options" id="paymentOptions"></div>
+      <p class="payment-note">Tenemos Litecoin, PayPal y transferencia en Mexico. Si quieres otro metodo, pregunta disponibilidad en Discord antes de comprar.</p>
+    </div>
+  </div>
+
   <footer>
     <span>Scar Shop</span>
     <span>© 2026 Scar Shop. Todos los derechos reservados.</span>
