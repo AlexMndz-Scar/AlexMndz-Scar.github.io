@@ -46,9 +46,7 @@ const products = [
   },
   {
     name: "Disney+",
-    subtitle: "• Todo el catálogo de Disney, Pixar, Marvel, Star Wars y National Geographic.
-               • Calidad 4K disponible.
-               • Perfil privado y garantizado.",
+    subtitle: "Cuenta completa",
     term: "Streaming",
     price: "$1.50 USD",
     category: "streaming",
@@ -60,7 +58,7 @@ const products = [
   },
   {
     name: "HBO Max",
-    subtitle: "HBO es más de historias intensas y de alta calidad 🎬 | Series originales aclamadas y cine premium 🔥 | Contenido exclusivo que engancha desde el primer capítulo 🍿",
+    subtitle: "Cuenta completa",
     term: "Streaming",
     price: "$1.50 USD",
     category: "streaming",
