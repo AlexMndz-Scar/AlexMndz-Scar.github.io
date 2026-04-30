@@ -94,15 +94,12 @@ a {
 }
 
 .brand-mark {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  place-items: center;
+  width: 46px;
+  height: 46px;
+  object-fit: cover;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: linear-gradient(145deg, rgba(100, 168, 255, 0.22), rgba(88, 234, 223, 0.08));
-  font-family: Georgia, serif;
-  font-size: 22px;
+  box-shadow: 0 0 22px rgba(255, 255, 255, 0.22);
 }
 
 .nav {
@@ -127,12 +124,22 @@ main {
 }
 
 .hero {
-  min-height: 430px;
+  min-height: 520px;
   display: grid;
   align-content: center;
   justify-items: center;
   padding: 56px 0 44px;
   text-align: center;
+}
+
+.hero-logo {
+  width: min(440px, 86vw);
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin-bottom: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  box-shadow: 0 0 55px rgba(255, 255, 255, 0.16), 0 28px 90px rgba(0, 0, 0, 0.65);
 }
 
 .eyebrow {
@@ -273,7 +280,7 @@ input[type="search"] {
 
 .product-art {
   position: relative;
-  min-height: 270px;
+  min-height: 310px;
   overflow: hidden;
   background:
     radial-gradient(circle at 74% 46%, color-mix(in srgb, var(--accent), transparent 58%), transparent 28%),
@@ -307,10 +314,10 @@ input[type="search"] {
 
 .box {
   position: absolute;
-  left: 28px;
-  bottom: 28px;
-  width: 178px;
-  height: 210px;
+  left: 22px;
+  bottom: 24px;
+  width: 150px;
+  height: 180px;
   padding: 26px 18px;
   background:
     linear-gradient(90deg, rgba(0, 0, 0, 0.26), transparent 30%),
@@ -325,7 +332,7 @@ input[type="search"] {
   display: block;
   color: white;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  font-size: 34px;
+  font-size: 28px;
   line-height: 0.92;
   text-transform: uppercase;
   text-shadow: 3px 4px 0 rgba(0, 0, 0, 0.62);
@@ -346,26 +353,26 @@ input[type="search"] {
 
 .symbol {
   position: absolute;
-  right: 54px;
-  top: 54px;
+  right: 26px;
+  top: 32px;
   z-index: 3;
   display: grid;
-  width: 190px;
-  height: 190px;
+  width: 240px;
+  height: 240px;
   place-items: center;
   border-radius: 50%;
   color: var(--accent);
   font-family: Georgia, serif;
-  font-size: 72px;
+  font-size: 88px;
   font-weight: 900;
   text-shadow: 0 0 18px var(--accent), 0 0 48px var(--accent);
 }
 
 .symbol img {
-  width: 110px;
-  max-height: 110px;
+  width: 160px;
+  max-height: 160px;
   object-fit: contain;
-  filter: drop-shadow(0 0 18px var(--accent)) drop-shadow(0 0 42px var(--accent));
+  filter: drop-shadow(0 0 24px var(--accent)) drop-shadow(0 0 58px var(--accent));
 }
 
 .symbol span {
@@ -783,7 +790,7 @@ footer span:first-child {
   }
 
   .product-art {
-    min-height: 230px;
+    min-height: 260px;
   }
 
   .box {
@@ -799,14 +806,14 @@ footer span:first-child {
   .symbol {
     right: 18px;
     top: 42px;
-    width: 150px;
-    height: 150px;
-    font-size: 54px;
+    width: 172px;
+    height: 172px;
+    font-size: 58px;
   }
 
   .symbol img {
-    width: 82px;
-    max-height: 82px;
+    width: 112px;
+    max-height: 112px;
   }
 
   .modal-panel {
